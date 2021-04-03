@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 public class CrawlingTest {
     public ArrayList<Item> crawlingItems(){
-//        ArrayList<Item> itemList = new ArrayList<>();
+        // 완료 후 List로 뽑아내려면 객체 필요
+        // ArrayList<Item> itemList = new ArrayList<>();
 
         String targetSite = "https://www.kurly.com/shop/goods/goods_view.php?&goodsno=65548";
 
