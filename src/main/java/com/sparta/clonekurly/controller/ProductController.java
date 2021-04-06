@@ -1,5 +1,6 @@
 package com.sparta.clonekurly.controller;
 
+import com.sparta.clonekurly.controllerReturn.ReturnProduct;
 import com.sparta.clonekurly.model.Product;
 import com.sparta.clonekurly.repository.ProductRepository;
 import com.sparta.clonekurly.service.ProductService;
@@ -19,12 +20,12 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/api/recommendations")
-    public ReturnClass getRecommendations(){
+    public ReturnProduct getRecommendations(){
         return productService.getRecommendations();
     }
 
     @GetMapping("/api/discounts")
-    public ReturnClass getDiscounts(){
+    public ReturnProduct getDiscounts(){
         return productService.getDiscounts();
     }
 }
