@@ -17,44 +17,58 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
+
     @Column(nullable = false)
     private Long no;// 상품 번호 - str
+
     @Column(nullable = false)
     private String name;  // 제목 - str
+
     @Column(nullable = true)
     private String short_description; // 상품설명(제목 아래 있는거) - str
+
     @Column(nullable = true)
     private String long_description;// 상품설명(상세) - img list?
+
     @Column(nullable = true)
     private String tags; // 매대에 tag 붙일 때 사용 ex) {names: ["Kurly Only"], types: [{type: "kurlyonly", names: ["Kurly Only"]}]} - dict
-    @Column(nullable = true)
-    private Boolean is_shown;  // 보여줄지 말지?? - boolean
+
     @Column(nullable = true)
     private Long sales_unit; // 판매 단위 - int
+
     @Column(nullable = true)
     private String unit_text;// 판매단위 text
+
     @Column(nullable = true)
     private String weight; // 무게 표시 - str
+
     @Column(nullable = true)
     private String origin; // 원산지 - str
+
     @Column(nullable = true)
     private String contactant; // 알레르기 유발 물질 - str
+
     @Column(nullable = true)
     private String expiration_date;// 유통기한 text - str
+
     @Column(nullable = true)
     private String extended_infos; // 늘어난 정보들?-_-;; - list
+
     @Column(nullable = true)
     private String guides;// 무슨 가이드인지 모르겠음 - list
-    @Column(nullable = true)
-    private Boolean is_expected_point; // 예상 적립 포인트가 있는지?, login 하면 바뀜 - boolean
+
     @Column(nullable = true)
     private Long expected_point; // 예상 포인트, login 하면 바뀜
+
     @Column(nullable = true)
     private Long expected_point_ratio; // 예상 포인트 율, login 하면 바뀜
+
     @Column(nullable = true)
     private String delivery_time_type_text; // 배송 시간 ex) 샛별배송/택배배송 text - str
+
     @Column(nullable = true)
     private String packing_type_text; // 포장 방법 text - str
+
     @Column(nullable = true)
     private Long delivery_type; // 배송 방법 type - int
     @Column(nullable = true)

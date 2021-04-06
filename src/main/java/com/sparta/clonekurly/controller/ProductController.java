@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ProductController {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @GetMapping("/api/recommendations")
     public ReturnClass getRecommendation(){
