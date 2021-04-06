@@ -1,4 +1,4 @@
-package com.sparta.clonekurly;
+package com.sparta.clonekurly.crawling;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
