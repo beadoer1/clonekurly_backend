@@ -28,10 +28,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     compile 'org.json:json:20201115'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // https://mvnrepository.com/artifact/org.jsoup/jsoup
-    implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
-    // 셀레니움 사용을 위한 의존성 적용
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.141.59'
     // spring security
     implementation 'org.springframework.boot:spring-boot-starter-security'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
