@@ -1,7 +1,7 @@
 package com.sparta.clonekurly.service;
 
 
-import com.sparta.clonekurly.controller.ReturnClass;
+import com.sparta.clonekurly.controllerReturn.ReturnProduct;
 import com.sparta.clonekurly.model.Product;
 import com.sparta.clonekurly.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +15,16 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ReturnClass getRecommendations() {
-        ReturnClass returnClass = new ReturnClass();
+    public ReturnProduct getRecommendations() {
+        ReturnProduct returnProduct = new ReturnProduct();
         List<Product> productList = productRepository.findAll();
-        returnClass.setOk(true);
-        returnClass.setResults(productList);
-        return returnClass;
+        returnProduct.setOk(true);
+        returnProduct.setResults(productList);
+        return returnProduct;
     }
 
-    public ReturnClass getDiscounts(){
-        ReturnClass returnClass = new ReturnClass();
+    public ReturnProduct getDiscounts(){
+        ReturnProduct returnProduct = new ReturnProduct();
         List<Product> productList = productRepository.findAll();
         for(int i = productList.size()-1; i >= 0; i--){
             System.out.println(i);
@@ -33,8 +33,8 @@ public class ProductService {
                 productList.remove(i);
             }
         }
-        returnClass.setOk(true);
-        returnClass.setResults(productList);
-        return returnClass;
+        returnProduct.setOk(true);
+        returnProduct.setResults(productList);
+        return returnProduct;
     }
 }

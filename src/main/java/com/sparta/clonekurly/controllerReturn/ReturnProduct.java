@@ -1,4 +1,4 @@
-package com.sparta.clonekurly.controller;
+package com.sparta.clonekurly.controllerReturn;
 
 import com.sparta.clonekurly.model.Product;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class ReturnClass {
+public class ReturnProduct {
     private Boolean ok;
     private List<Product> results = new ArrayList<>();
 }
