@@ -3,10 +3,9 @@ package com.sparta.clonekurly.controllerReturn;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class ReturnUser {
-    private String token;
-    private String name;
+@Setter
+public class ReturnCheckId {
+    private Boolean ok;
     private String msg;
 }
