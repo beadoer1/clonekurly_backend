@@ -28,15 +28,15 @@ public class CartController {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
-    @GetMapping("/api/cart")
+    @GetMapping("/api/carts")
     public ReturnCart getCartByUser(){ // 사용자 식별 정보 필요(token),
-        User user = userRepository.findByUsername("asdf").orElseThrow(
+        User user = userRepository.findByUsername("kiki").orElseThrow(
                 () -> new IllegalArgumentException("야호")
         );  // 같이 온 Token에서 꺼냈다고 가정
         return cartService.getCartByUser(user);
     }
 
-    @PostMapping("/api/cart/product")
+    @PostMapping("/api/carts/products")
     public void plusProductToCart(@RequestBody Map<String, Long> requestData){ // { "id" : 3, "nums" : 3}
         User user = userRepository.findByUsername("asdf").orElseThrow(
                 () -> new IllegalArgumentException("야호")

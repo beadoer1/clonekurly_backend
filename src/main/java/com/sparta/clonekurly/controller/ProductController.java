@@ -1,6 +1,7 @@
 package com.sparta.clonekurly.controller;
 
 import com.sparta.clonekurly.controllerReturn.ReturnProduct;
+import com.sparta.clonekurly.controllerReturn.ReturnProductDetail;
 import com.sparta.clonekurly.model.Product;
 import com.sparta.clonekurly.repository.ProductRepository;
 import com.sparta.clonekurly.service.ProductService;
@@ -32,15 +33,13 @@ public class ProductController {
     }
 
     @GetMapping("/api/products/{id}")
-    public ReturnProduct getProductById(@PathVariable Long id){
+    public ReturnProductDetail getProductById(@PathVariable Long id){
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("상품 ID가 존재하지 않습니다.")
         );
-        ReturnProduct returnProduct = new ReturnProduct();
-        List<Product> productList = new ArrayList<>();
-        productList.add(product);
-        returnProduct.setOk(true);
-        returnProduct.setResults(productList);
-        return returnProduct;
+        ReturnProductDetail returnProductDetail = new ReturnProductDetail();
+        returnProductDetail.setOk(true);
+        returnProductDetail.setResults(product);
+        return returnProductDetail;
     }
 }

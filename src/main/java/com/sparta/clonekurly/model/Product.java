@@ -1,6 +1,7 @@
 package com.sparta.clonekurly.model;
 
 
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -81,4 +82,5 @@ public class Product {
     private Long package_type; // 패키지 타입 - int
     @Column
     private String package_products; // 패키지 상품 - list
+
 }

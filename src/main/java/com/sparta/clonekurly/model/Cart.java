@@ -1,6 +1,5 @@
 package com.sparta.clonekurly.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import java.util.List;
 @Setter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
