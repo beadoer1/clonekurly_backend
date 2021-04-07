@@ -8,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,5 +29,18 @@ public class ProductController {
     @GetMapping("/api/discounts")
     public ReturnProduct getDiscounts(){
         return productService.getDiscounts();
+    }
+
+    @GetMapping("/api/products/{id}")
+    public ReturnProduct getProductById(@PathVariable Long id){
+        Product product = productRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("상품 ID가 존재하지 않습니다.")
+        );
+        ReturnProduct returnProduct = new ReturnProduct();
+        List<Product> productList = new ArrayList<>();
+        productList.add(product);
+        returnProduct.setOk(true);
+        returnProduct.setResults(productList);
+        return returnProduct;
     }
 }
