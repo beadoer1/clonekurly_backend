@@ -14,7 +14,7 @@ import java.util.Collections;
 @Builder
 @Entity
 //@Table(name = "USER")
-public class Users extends Timestamped implements UserDetails {
+public class User extends Timestamped implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

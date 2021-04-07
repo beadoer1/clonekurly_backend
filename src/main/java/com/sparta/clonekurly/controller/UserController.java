@@ -2,7 +2,9 @@ package com.sparta.clonekurly.controller;
 
 import com.sparta.clonekurly.controllerReturn.ReturnCheckId;
 import com.sparta.clonekurly.controllerReturn.ReturnUser;
-import com.sparta.clonekurly.model.Users;
+import com.sparta.clonekurly.model.Cart;
+import com.sparta.clonekurly.model.User;
+import com.sparta.clonekurly.repository.CartRepository;
 import com.sparta.clonekurly.repository.UserRepository;
 import com.sparta.clonekurly.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -23,22 +25,27 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
 
     // 회원가입
     @PostMapping("/api/signup")
     public Long join(@RequestBody Map<String, String> user) {
         System.out.println(user);
-        return userRepository.save(Users.builder()
-                .username(user.get("username"))
-                .password(passwordEncoder.encode(user.get("password")))
-                .name(user.get("name"))
-                .build()).getId();
+        User newUser = User.builder()
+                        .username(user.get("username"))
+                        .password(passwordEncoder.encode(user.get("password")))
+                        .name(user.get("name")).build();
+        Cart cart = new Cart(newUser);
+        userRepository.save(newUser);
+        cartRepository.save(cart);
+        return newUser.getId();
     }
+
     // ID 중복 체크
     @PostMapping ("/api/signup/checkid")
     public ReturnCheckId checkId(@RequestBody Map<String, String> user){
         ReturnCheckId returnCheckId = new ReturnCheckId();
-        Optional<Users> member = userRepository.findByUsername(user.get("username"));
+        Optional<User> member = userRepository.findByUsername(user.get("username"));
         if(member.isPresent()){
             returnCheckId.setOk(false);
             returnCheckId.setMsg("중복된 ID가 존재합니다.");
@@ -54,7 +61,7 @@ public class UserController {
     public ReturnUser login(@RequestBody Map<String, String> user) {
         ReturnUser returnUser = new ReturnUser();
         try {
-            Users member = userRepository.findByUsername(user.get("username"))
+            User member = userRepository.findByUsername(user.get("username"))
                     .orElseThrow(() -> new IllegalArgumentException("ID를 찾을 수 없습니다."));
             if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
                 throw new IllegalArgumentException("잘못된 비밀번호입니다.");
