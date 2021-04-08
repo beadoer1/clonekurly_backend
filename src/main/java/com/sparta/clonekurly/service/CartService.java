@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,15 +33,29 @@ public class CartService {
 
     // cart에 상품 등록하기
     @Transactional
-    public void plusProductToCart(User user, Long productId, Long nums){
+    public void plusProductToCart(User user, Long productId, Long nums) {
         Cart cart = cartRepository.findByUser(user);
         Product product = productRepository.findById(productId).orElseThrow(
                 () -> new IllegalArgumentException("해당 ID의 상품을 찾을 수 없습니다.")
         );
+
+        List<ProductInCart> productList = cart.getProductInCartList();
+
+
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getProduct().getId().equals(productId)) {
+                productList.get(i).setNums(productList.get(i).getNums() + nums);
+                return;
+            }
+        }
+
+
         ProductInCart productInCart = new ProductInCart();
         productInCart.setProduct(product);
         productInCart.setNums(nums);
         productInCartRepository.save(productInCart);
         cart.getProductInCartList().add(productInCart);
+
+
     }
 }
