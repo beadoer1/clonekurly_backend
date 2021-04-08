@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -38,24 +39,30 @@ public class CartService {
         Product product = productRepository.findById(productId).orElseThrow(
                 () -> new IllegalArgumentException("해당 ID의 상품을 찾을 수 없습니다.")
         );
-
         List<ProductInCart> productList = cart.getProductInCartList();
-
-
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getProduct().getId().equals(productId)) {
-                productList.get(i).setNums(productList.get(i).getNums() + nums);
+        for (ProductInCart productInCart : productList) {
+            if (productInCart.getProduct().getId().equals(productId)) {
+                productInCart.setNums(productInCart.getNums() + nums);
                 return;
             }
         }
-
 
         ProductInCart productInCart = new ProductInCart();
         productInCart.setProduct(product);
         productInCart.setNums(nums);
         productInCartRepository.save(productInCart);
         cart.getProductInCartList().add(productInCart);
+    }
 
-
+    @Transactional
+    public void updateProductInCart(List<Map<String,Long>> requestData){
+        for (Map<String, Long> requestMap : requestData) {
+            Long id = requestMap.get("id");
+            Long nums = requestMap.get("nums");
+            ProductInCart productInCart = productInCartRepository.findById(id).orElseThrow(
+                    () -> new IllegalArgumentException("장바구니에 없는 상품입니다.")
+            );
+            productInCart.setNums(nums);
+        }
     }
 }
