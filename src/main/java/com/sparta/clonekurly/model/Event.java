@@ -12,8 +12,9 @@ import javax.persistence.*;
 @Entity
 public class Event {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
 
     @Column(nullable = false)
@@ -24,4 +25,5 @@ public class Event {
 
     @Column(name = "img_url")
     private String img;
+
 }
