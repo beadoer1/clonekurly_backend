@@ -40,6 +40,10 @@ public class CartController {
         cartService.plusProductToCart(user, productId, nums);
     }
 
+    @PutMapping
+
+
+    @DeleteMapping
 
 
 
