@@ -8,12 +8,13 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@Entity
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
 
     @Column(nullable = false)
@@ -22,9 +23,7 @@ public class Event {
     @Column
     private String subtitle;
 
-    @Column(name = "IMG_URL")
+    @Column(name = "img_url")
     private String img;
-
-
 
 }
