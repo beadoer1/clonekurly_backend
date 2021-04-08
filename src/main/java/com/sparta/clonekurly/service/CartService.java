@@ -43,5 +43,4 @@ public class CartService {
         productInCartRepository.save(productInCart);
         cart.getProductInCartList().add(productInCart);
     }
-
 }

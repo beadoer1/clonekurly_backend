@@ -8,12 +8,11 @@ import com.sparta.clonekurly.model.User;
 import com.sparta.clonekurly.repository.CartRepository;
 import com.sparta.clonekurly.repository.ProductRepository;
 import com.sparta.clonekurly.repository.UserRepository;
+import com.sparta.clonekurly.security.JwtTokenProvider;
 import com.sparta.clonekurly.service.CartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.Map;
@@ -27,22 +26,21 @@ public class CartController {
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/api/carts")
-    public ReturnCart getCartByUser(){ // 사용자 식별 정보 필요(token),
-        User user = userRepository.findByUsername("kiki").orElseThrow(
-                () -> new IllegalArgumentException("야호")
-        );  // 같이 온 Token에서 꺼냈다고 가정
+    public ReturnCart getCartByUser(@AuthenticationPrincipal User user){ // 사용자 식별 정보 필요(token),
         return cartService.getCartByUser(user);
     }
 
     @PostMapping("/api/carts/products")
-    public void plusProductToCart(@RequestBody Map<String, Long> requestData){ // { "id" : 3, "nums" : 3}
-        User user = userRepository.findByUsername("asdf").orElseThrow(
-                () -> new IllegalArgumentException("야호")
-        );  // 같이 온 Token에서 꺼냈다고 가정
+    public void plusProductToCart(@RequestBody Map<String, Long> requestData, @AuthenticationPrincipal User user){ // { "id" : 3, "nums" : 3}
         Long productId = requestData.get("id");
         Long nums = requestData.get("nums");
         cartService.plusProductToCart(user, productId, nums);
     }
+
+
+
+
 }
