@@ -26,10 +26,10 @@
 2. 로그인/회원가입 기능 구현(+ JWT 구현을 통한 보안 기능 구현)
    - JWT(Json Web Token) 생성/확인 기능 구현
    - JwtAuthenticationFilter 를 통한 본 기능 실행 전 token 확인 절차 구현
-3. 홈 화면 제품 및 광고 카드, 제품 상세 페이지 data 반환 API 구
+3. 홈 화면 제품 및 광고 카드, 제품 상세 페이지 data 반환 API 구현
    - 마켓컬리 API 요청 후 DB 저장하는 방식을 통한 제품 DB 구축
    - GET 방식 api 요청을 통해 DB 내 product 반환
 4. 장바구니 기능 구현
-   - 장바구니 및 장바구니에 담긴 상품 관계 설정
+   - 장바구니 및 장바구니에 담긴 상품 관계 설정  
    ![cartERDiagram](images/cartERDiagram.png)   
-   - 객체 구현 및 CRUD 기능 구현
+   - 클래스 구현 및 CRUD 기능 구현
