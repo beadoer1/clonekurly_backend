@@ -34,12 +34,6 @@ public class ProductController {
 
     @GetMapping("/api/products/{id}")
     public ReturnProductDetail getProductById(@PathVariable Long id){
-        Product product = productRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("상품 ID가 존재하지 않습니다.")
-        );
-        ReturnProductDetail returnProductDetail = new ReturnProductDetail();
-        returnProductDetail.setOk(true);
-        returnProductDetail.setResults(product);
-        return returnProductDetail;
+        return productService.getProductById(id);
     }
 }

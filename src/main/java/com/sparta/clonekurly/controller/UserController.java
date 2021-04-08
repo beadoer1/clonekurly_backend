@@ -7,6 +7,7 @@ import com.sparta.clonekurly.model.User;
 import com.sparta.clonekurly.repository.CartRepository;
 import com.sparta.clonekurly.repository.UserRepository;
 import com.sparta.clonekurly.security.JwtTokenProvider;
+import com.sparta.clonekurly.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,14 +24,13 @@ import java.util.Optional;
 public class UserController {
 
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
+    private final UserService userService;
     private final CartRepository cartRepository;
 
     // 회원가입
     @PostMapping("/api/signup")
     public Long join(@RequestBody Map<String, String> user) {
-        System.out.println(user);
         User newUser = User.builder()
                         .username(user.get("username"))
                         .password(passwordEncoder.encode(user.get("password")))
@@ -59,19 +59,6 @@ public class UserController {
     // 로그인
     @PostMapping("/api/login")
     public ReturnUser login(@RequestBody Map<String, String> user) {
-        ReturnUser returnUser = new ReturnUser();
-        try {
-            User member = userRepository.findByUsername(user.get("username"))
-                    .orElseThrow(() -> new IllegalArgumentException("ID를 찾을 수 없습니다."));
-            if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
-                throw new IllegalArgumentException("잘못된 비밀번호입니다.");
-            }
-            returnUser.setToken(jwtTokenProvider.createToken(member.getUsername()));
-            returnUser.setName(member.getName());
-            return returnUser;
-        } catch (IllegalArgumentException e){
-            returnUser.setMsg(e.getMessage());
-            return returnUser;
-        }
+            return userService.login(user);
     }
 }

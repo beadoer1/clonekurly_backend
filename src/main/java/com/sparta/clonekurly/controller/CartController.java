@@ -40,34 +40,45 @@ public class CartController {
     }
 
     @DeleteMapping("/api/carts/products/{id}")
-    public ReturnCheckId deleteProductInCart(@PathVariable Long id) {
+    public ReturnCheckId deleteProductInCart(@PathVariable Long id, @AuthenticationPrincipal User user) {
         ReturnCheckId returnCheckId = new ReturnCheckId();
-        try {
-            productInCartRepository.findById(id).orElseThrow(
-                    () -> new IllegalArgumentException("해당 상품이 장바구니에 존재하지 않습니다.")
-            );
-        } catch (IllegalArgumentException e) {
-            returnCheckId.setOk(false);
-            returnCheckId.setMsg(e.getMessage());
+        if(user != null) {
+            try {
+                productInCartRepository.findById(id).orElseThrow(
+                        () -> new IllegalArgumentException("해당 상품이 장바구니에 존재하지 않습니다.")
+                );
+            } catch (IllegalArgumentException e) {
+                returnCheckId.setOk(false);
+                returnCheckId.setMsg(e.getMessage());
+                return returnCheckId;
+            }
+            productInCartRepository.deleteById(id);
+            returnCheckId.setOk(true);
+            returnCheckId.setMsg("상품을 삭제 완료 하였습니다.");
             return returnCheckId;
         }
-        productInCartRepository.deleteById(id);
-        returnCheckId.setOk(true);
-        returnCheckId.setMsg("상품을 삭제 완료 하였습니다.");
+        returnCheckId.setOk(false);
+        returnCheckId.setMsg("로그인이 필요한 기능입니다.");
         return returnCheckId;
+
     }
 
     @PutMapping("/api/carts/products")
-    public ReturnCheckId updateProductInCart(@RequestBody List<Map<String, Long>> requestData) {
+    public ReturnCheckId updateProductInCart(@RequestBody List<Map<String, Long>> requestData, @AuthenticationPrincipal User user) {
         ReturnCheckId returnCheckId = new ReturnCheckId();
-        try {
-            cartService.updateProductInCart(requestData);
-            returnCheckId.setOk(true);
-            returnCheckId.setMsg("업데이트 성공!");
-        } catch (IllegalArgumentException e) {
-            returnCheckId.setOk(false);
-            returnCheckId.setMsg(e.getMessage());
+        if(user != null) {
+            try {
+                cartService.updateProductInCart(requestData);
+                returnCheckId.setOk(true);
+                returnCheckId.setMsg("업데이트 성공!");
+            } catch (IllegalArgumentException e) {
+                returnCheckId.setOk(false);
+                returnCheckId.setMsg(e.getMessage());
+            }
+            return returnCheckId;
         }
+        returnCheckId.setOk(false);
+        returnCheckId.setMsg("로그인이 필요한 기능입니다.");
         return returnCheckId;
     }
 }
