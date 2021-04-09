@@ -2,7 +2,7 @@
 
 ### 개요
 #### Frontend github link
-- [Clone Coding - 마켓컬리(Frontend)](https://github.com/MyoungSeob/clone_kurly  
+- [Clone Coding - 마켓컬리(Frontend)](https://github.com/MyoungSeob/clone_kurly)  
 
 #### 함께한 팀원
 - Frontend : 이명섭, 정성목
