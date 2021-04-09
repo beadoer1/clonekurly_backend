@@ -17,8 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
                                             //Set max age to 1800 seconds (30 minutes).
             .allowedOrigins("*") // 허락할 Origin을 지정 ex) "http://localhost:8080", "http://localhost:8081"
             .allowedMethods("*") // 허욜할 HTTP method를 지정 ex) "GET","POST"
-            .maxAge(3600); //  pre-flight 리퀘스트를 캐싱 해두는 시간 지정. seconds 단위
-
+            .maxAge(3600); // pre-flight 리퀘스트를 캐싱 해두는 시간 지정. seconds 단위
     }
 }
 

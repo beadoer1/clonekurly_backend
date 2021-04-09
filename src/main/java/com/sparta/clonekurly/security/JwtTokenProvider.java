@@ -23,7 +23,7 @@ public class JwtTokenProvider { // 토큰 생성, 검증
 
     private String secretKey = "clonekurlyclonekurlyclonekurlyclonekurlyclonekurlyclonekurlyclonekurly";
 
-    private long tokenValidTime = 30*60*1000L;
+    private long tokenValidTime = 60*60*1000L;
     private final UserDetailsService userDetailsService;
 
     protected void init(){
